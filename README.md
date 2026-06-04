@@ -48,6 +48,31 @@ Available categories: `OVERALL`, `POLITICS`, `SPORTS`, `CRYPTO`, `CULTURE`, `ECO
 
 Available periods: `DAY`, `WEEK`, `MONTH`, `ALL`
 
+**Find and analyze the best wallet in a specific category**
+
+Each category has its own leaderboard. These one-liners pull the top trader in that category and analyze their full history:
+
+```bash
+# Best political trader this month
+python3 wallet_analyzer.py --leaderboard --category POLITICS --period MONTH
+
+# Best crypto trader all time
+python3 wallet_analyzer.py --leaderboard --category CRYPTO --period ALL
+
+# Best sports trader this week
+python3 wallet_analyzer.py --leaderboard --category SPORTS --period WEEK
+
+# Best economics/macro trader this month
+python3 wallet_analyzer.py --leaderboard --category ECONOMICS --period MONTH
+
+# Best tech trader all time, top 3 analyzed
+python3 wallet_analyzer.py --leaderboard --category TECH --period ALL --analyze-top 3
+```
+
+Available categories: `OVERALL`, `POLITICS`, `SPORTS`, `CRYPTO`, `CULTURE`, `ECONOMICS`, `TECH`, `FINANCE`, `WEATHER`, `MENTIONS`
+
+Available periods: `DAY`, `WEEK`, `MONTH`, `ALL`
+
 **Browse first, then pick who to analyze**
 
 ```bash

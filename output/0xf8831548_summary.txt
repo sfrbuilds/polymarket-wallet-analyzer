@@ -1,0 +1,23 @@
+============================================================
+  SUMMARY  0xf8831548531d56ad6a...
+  Generated: 2026-06-04 14:33:52 UTC
+============================================================
+
+  Total trades fetched:   3,500
+  Open positions:         0
+  Closed positions:       0
+
+  Top 10 most-traded markets
+  ======================================
+    855x  Bitcoin Up or Down - June 4, 2:30PM-2:35PM ET
+    583x  Bitcoin Up or Down - June 4, 2:25PM-2:30PM ET
+    144x  Bitcoin Up or Down - June 4, 2:30PM-2:45PM ET
+    105x  Ethereum Up or Down - June 4, 2:30PM-2:35PM ET
+     96x  Bitcoin Up or Down - June 4, 2PM ET
+     92x  Ethereum Up or Down - June 4, 2:25PM-2:30PM ET
+     72x  XRP Up or Down - June 4, 2:30PM-2:35PM ET
+     67x  Solana Up or Down - June 4, 2:30PM-2:35PM ET
+     45x  Will the price of Bitcoin be above $64,000 on June 5?
+     42x  Will Sweden win on 2026-06-04?
+
+============================================================

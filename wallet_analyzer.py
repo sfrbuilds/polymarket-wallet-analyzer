@@ -587,6 +587,7 @@ def fetch_market_holders(condition_id: str) -> None:
 # ==============================================================================
 
 def main():
+    global OUT_DIR
     parser = argparse.ArgumentParser(
         description="Polymarket wallet analyzer - full history, paginated, CSV export.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -649,9 +650,9 @@ Examples:
         help="Number of leaderboard entries to fetch (default: 50, max ~1000)",
     )
     parser.add_argument(
-        "--analyze-top", type=int, default=0, metavar="N",
+        "--analyze-top", type=int, default=1, metavar="N",
         dest="analyze_top",
-        help="After fetching leaderboard, run full wallet analysis on the top N",
+        help="After fetching leaderboard, run full wallet analysis on the top N (default: 1, use 0 to skip)",
     )
     parser.add_argument(
         "--market", metavar="CONDITION_ID",
@@ -662,13 +663,13 @@ Examples:
         help="Also save raw JSON alongside CSV files",
     )
     parser.add_argument(
-        "--out", metavar="DIR", default=OUT_DIR,
+        "--out", metavar="DIR", default=None,
         help=f"Output directory (default: {OUT_DIR})",
     )
     args = parser.parse_args()
 
-    global OUT_DIR
-    OUT_DIR = args.out
+    if args.out:
+        OUT_DIR = args.out
     os.makedirs(OUT_DIR, exist_ok=True)
 
     print(f"\n{'='*60}")

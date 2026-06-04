@@ -15,34 +15,57 @@ python3 wallet_analyzer.py --help
 
 ## Typical workflow
 
-**Step 1: Find wallets to follow via the leaderboard**
+**One command to see everything**
 
 ```bash
-# Top traders this week, all categories
 python3 wallet_analyzer.py --leaderboard
-
-# Top political traders this month
-python3 wallet_analyzer.py --leaderboard --period MONTH --category POLITICS
-
-# Top by volume, all time
-python3 wallet_analyzer.py --leaderboard --period ALL --order-by VOL --limit 100
 ```
 
-The leaderboard shows rank, P&L, volume, username, and wallet address. Copy any address you want to follow.
+This pulls the top 50 traders for the week, prints the ranked table, then automatically runs a full analysis on the #1 wallet — trade history, positions, P&L summary, CSVs. No extra steps.
 
-**Step 2: Analyze a wallet**
+**Find and analyze the best wallet in a specific category**
+
+Each category has its own leaderboard. These one-liners pull the top trader in that category and analyze their full history:
 
 ```bash
+# Best political trader this month
+python3 wallet_analyzer.py --leaderboard --category POLITICS --period MONTH
+
+# Best crypto trader all time
+python3 wallet_analyzer.py --leaderboard --category CRYPTO --period ALL
+
+# Best sports trader this week
+python3 wallet_analyzer.py --leaderboard --category SPORTS --period WEEK
+
+# Best economics/macro trader this month
+python3 wallet_analyzer.py --leaderboard --category ECONOMICS --period MONTH
+
+# Best tech trader all time, top 3 analyzed
+python3 wallet_analyzer.py --leaderboard --category TECH --period ALL --analyze-top 3
+```
+
+Available categories: `OVERALL`, `POLITICS`, `SPORTS`, `CRYPTO`, `CULTURE`, `ECONOMICS`, `TECH`, `FINANCE`, `WEATHER`, `MENTIONS`
+
+Available periods: `DAY`, `WEEK`, `MONTH`, `ALL`
+
+**Browse first, then pick who to analyze**
+
+```bash
+# Show the leaderboard without analyzing anyone
+python3 wallet_analyzer.py --leaderboard --category POLITICS --analyze-top 0
+
+# Then analyze a specific wallet you found interesting
 python3 wallet_analyzer.py --wallet 0xABC123...
 ```
 
-Full history downloads automatically. CSVs land in `./output/`.
-
-**Or combine both steps**
+**Compare top wallets across categories**
 
 ```bash
-# Pull leaderboard and immediately analyze the top 5 wallets
-python3 wallet_analyzer.py --leaderboard --analyze-top 5
+# Run back to back — each saves its own CSV
+python3 wallet_analyzer.py --leaderboard --category POLITICS --period MONTH --analyze-top 0
+python3 wallet_analyzer.py --leaderboard --category CRYPTO --period MONTH --analyze-top 0
+python3 wallet_analyzer.py --leaderboard --category ECONOMICS --period MONTH --analyze-top 0
+# CSVs land in output/leaderboard_politics_month.csv etc.
 ```
 
 ---
@@ -120,14 +143,39 @@ The summary file includes:
 
 ## How to find a wallet address
 
-Option 1: Use the `--leaderboard` command. The address is printed in the table.
+**Option 1: Use the leaderboard (easiest)**
 
-Option 2: From a Polymarket profile URL:
-```
-polymarket.com/profile/0xSOME_ADDRESS
+```bash
+python3 wallet_analyzer.py --leaderboard --analyze-top 0
 ```
 
-Note: Polymarket uses proxy wallets, not EOA wallets. The address in the URL is the proxy wallet.
+The address column is printed for every trader. Copy any one you want.
+
+**Option 2: From a Polymarket profile page**
+
+Go to any trader's profile on polymarket.com. The URL contains their wallet address:
+
+```
+polymarket.com/profile/0xf8831548531d56ad6a...
+                        ^^^^^^^^^^^^^^^^^^^^
+                        this is the proxy wallet address
+```
+
+Copy the full `0x...` string and pass it to `--wallet`.
+
+**Option 3: From a market's leaderboard**
+
+On any market page, click "Leaderboard" to see top holders. Their addresses appear in the table or in the URL when you click their profile.
+
+**Option 4: From the top holders endpoint**
+
+```bash
+python3 wallet_analyzer.py --market 0xCONDITION_ID
+```
+
+This shows the largest position holders for any specific market.
+
+Note: Polymarket uses proxy wallets, not EOA (MetaMask) wallets. Always use the address from the Polymarket profile URL, not your MetaMask address.
 
 ---
 
